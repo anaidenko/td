@@ -1,13 +1,16 @@
-:host {
+$progress-width: 30px;
+$progress-height: 30px;
+
+$btn-width: 15px;
+$btn-height: 20px;
+
+.timer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-self: center;
   position: relative;
   align-items: center;
 }
-
-$width: 15px;
-$height: 20px;
 
 .button {
   position: relative;
@@ -18,8 +21,8 @@ $height: 20px;
   border: 0;
   background: transparent;
   box-sizing: border-box;
-  width: $width;
-  height: $height;
+  width: $btn-width;
+  height: $btn-height;
   margin-left: 2px;
 
   border-color: transparent transparent transparent #202020;
@@ -33,14 +36,14 @@ $height: 20px;
   // play action
   &.play {
     border-style: solid;
-    border-width: ($height / 2) 0 ($height / 2) $width;
+    border-width: ($btn-height / 2) 0 ($btn-height / 2) $btn-width;
   }
 
   // pause action
   &.pause {
     border-style: double;
-    height: $height - 3px;
-    border-width: 0px 0 0px ($width - 3px);
+    height: $btn-height - 3px;
+    border-width: 0 0 0 ($btn-width - 3px);
   }
 
   &:hover {
@@ -49,7 +52,11 @@ $height: 20px;
 }
 
 .progress {
-  width: 30px;
-  height: 30px;
+  width: $progress-width;
+  height: $progress-height;
   z-index: -1;
+}
+
+.timer-label {
+  font-size: 12px;
 }
