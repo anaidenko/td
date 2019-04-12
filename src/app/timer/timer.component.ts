@@ -58,12 +58,12 @@ export class TimerComponent implements OnInit {
     );
 
     this.timeSpent$ = combineLatest(this.timeSpentSubj, this.timer$).pipe(
-      map(([timeSpent, timer]) => (timeSpent || 0) + (timer || 0)),
+      map(([timeSpent, timerCount]) => (timeSpent || 0) + (timerCount || 0)),
       tap(value => (this._todo.timeSpent = value))
     );
 
     this.timeRemaining$ = combineLatest(this.timeRemainingSubj, this.timer$).pipe(
-      map(([timeRemaining, timer]) => (typeof timeRemaining === 'number' ? timeRemaining : DEFAULT_TIMER_SEC) - (timer || 0)),
+      map(([timeRemaining, timerCount]) => (typeof timeRemaining === 'number' ? timeRemaining : DEFAULT_TIMER_SEC) - (timerCount || 0)),
       tap(value => {
         if (value < 0) {
           this.pause();
@@ -87,11 +87,11 @@ export class TimerComponent implements OnInit {
     if (this.state === 'running') {
       this.pause();
     } else {
-      this.play();
+      this.resume();
     }
   }
 
-  play() {
+  resume() {
     this.state = 'running';
     this.iconClass = 'pause';
     this.playingSubj.next(true);
