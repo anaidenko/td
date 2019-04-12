@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+/**
+ * @see https://codepen.io/anon/pen/KrwJxw for demo/reference
+ */
 @Component({
   selector: 'app-timer-progress',
   templateUrl: './timer-progress.component.html',
@@ -15,9 +18,7 @@ export class TimerProgressComponent implements OnInit {
 
   svgPath: string;
 
-  constructor() {
-    this.svgPath = this.calculateSvgPath(300);
-  }
+  constructor() {}
 
   ngOnInit() {}
 
