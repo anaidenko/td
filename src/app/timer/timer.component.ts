@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, timer, BehaviorSubject, of, combineLatest } from 'rxjs';
 import { map, switchMap, tap, mapTo, startWith, scan } from 'rxjs/operators';
 import { Todo } from '../todo';
@@ -13,7 +13,7 @@ const DEFAULT_TIMER_SEC = 30 * 60; // 30 min
 })
 export class TimerComponent implements OnInit {
   state: 'running' | 'paused' = 'paused';
-  action: 'play' | 'pause' = 'play';
+  iconClass: 'play' | 'pause' = 'play';
 
   private _todo: Todo;
 
@@ -22,6 +22,12 @@ export class TimerComponent implements OnInit {
     this._todo = todo;
     this.setupTimer(todo);
   }
+
+  @Output()
+  start = new EventEmitter<Todo>();
+
+  @Output()
+  stop = new EventEmitter<Todo>();
 
   private playingSubj = new BehaviorSubject<boolean>(false);
   private timeSpentSubj = new BehaviorSubject<number>(0);
@@ -58,7 +64,13 @@ export class TimerComponent implements OnInit {
 
     this.timeRemaining$ = combineLatest(this.timeRemainingSubj, this.timer$).pipe(
       map(([timeRemaining, timer]) => (typeof timeRemaining === 'number' ? timeRemaining : DEFAULT_TIMER_SEC) - (timer || 0)),
-      tap(value => (this._todo.timeRemaining = value))
+      tap(value => {
+        if (value < 0) {
+          this.pause();
+        } else {
+          this._todo.timeRemaining = value;
+        }
+      })
     );
 
     this.timeRemainingProgress$ = combineLatest(this.timeSpent$, this.timeRemaining$).pipe(
@@ -81,13 +93,15 @@ export class TimerComponent implements OnInit {
 
   play() {
     this.state = 'running';
-    this.action = 'pause';
+    this.iconClass = 'pause';
     this.playingSubj.next(true);
+    this.start.emit(this._todo);
   }
 
   pause() {
     this.state = 'paused';
-    this.action = 'play';
+    this.iconClass = 'play';
     this.playingSubj.next(false);
+    this.stop.emit(this._todo);
   }
 }

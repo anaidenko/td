@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from '../todo';
+import { TodoDataService } from '../todo-data.service';
 
 @Component({
   selector: 'app-todo-list-item',
@@ -15,7 +16,7 @@ export class TodoListItemComponent {
   @Output()
   toggleComplete: EventEmitter<Todo> = new EventEmitter();
 
-  constructor() {}
+  constructor(private todoDataService: TodoDataService) {}
 
   toggleTodoComplete(todo: Todo) {
     this.toggleComplete.emit(todo);
@@ -23,5 +24,9 @@ export class TodoListItemComponent {
 
   removeTodo(todo: Todo) {
     this.remove.emit(todo);
+  }
+
+  onStopTimer(todo: Todo) {
+    this.todoDataService.updateTodo(todo).subscribe();
   }
 }
