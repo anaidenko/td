@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable, timer, BehaviorSubject, of, combineLatest } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, mapTo, startWith, scan } from 'rxjs/operators';
 import { Todo } from '../todo';
 
 // const DEFAULT_TIMER_SEC = 10; // 10 sec
@@ -27,6 +27,7 @@ export class TimerComponent implements OnInit {
   private timeSpentSubj = new BehaviorSubject<number>(0);
   private timeRemainingSubj = new BehaviorSubject<number>(0);
 
+  playing$ = this.playingSubj.asObservable();
   interval$: Observable<number>;
   timer$: Observable<number>;
   timeSpent$: Observable<number>;
@@ -40,9 +41,15 @@ export class TimerComponent implements OnInit {
   ngOnInit() {}
 
   initObservables() {
-    this.interval$ = timer(0, 1000);
+    this.interval$ = timer(1000, 1000).pipe(
+      mapTo(1),
+      startWith(0)
+    );
 
-    this.timer$ = this.playingSubj.pipe(switchMap(playing => (playing ? this.interval$ : of(0))));
+    this.timer$ = this.playingSubj.pipe(
+      switchMap(playing => (playing ? this.interval$ : of(0))),
+      scan((acc, curr) => (curr ? curr + acc : acc), 0)
+    );
 
     this.timeSpent$ = combineLatest(this.timeSpentSubj, this.timer$).pipe(
       map(([timeSpent, timer]) => (timeSpent || 0) + (timer || 0)),
@@ -82,6 +89,5 @@ export class TimerComponent implements OnInit {
     this.state = 'paused';
     this.action = 'play';
     this.playingSubj.next(false);
-    this.setupTimer(this._todo);
   }
 }
