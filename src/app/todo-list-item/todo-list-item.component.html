@@ -1,6 +1,6 @@
 <div class="view">
   <input class="toggle" type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="todo.complete" />
   <label>{{ todo.title }}</label>
-  <app-timer></app-timer>
+  <app-timer [todo]="todo"></app-timer>
   <button class="destroy" (click)="removeTodo(todo)"></button>
 </div>
