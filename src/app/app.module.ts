@@ -11,9 +11,18 @@ import { TodoDataService } from './todo-data.service';
 import { TodoListItemComponent } from './todo-list-item/todo-list-item.component';
 import { ApiService } from './api.service';
 import { TimerComponent } from './timer/timer.component';
+import { TimerProgressComponent } from './timer-progress/timer-progress.component';
 
 @NgModule({
-  declarations: [AppComponent, TodoListComponent, TodoListFooterComponent, TodoListHeaderComponent, TodoListItemComponent, TimerComponent],
+  declarations: [
+    AppComponent,
+    TodoListComponent,
+    TodoListFooterComponent,
+    TodoListHeaderComponent,
+    TodoListItemComponent,
+    TimerComponent,
+    TimerProgressComponent
+  ],
   imports: [BrowserModule, FormsModule, HttpModule],
   providers: [TodoDataService, ApiService],
   bootstrap: [AppComponent]
