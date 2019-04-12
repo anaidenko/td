@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, timer } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Observable, timer, BehaviorSubject, combineLatest, of } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-timer',
@@ -11,12 +11,16 @@ export class TimerComponent implements OnInit {
   state: 'running' | 'paused' = 'paused';
   action: 'play' | 'pause' = 'play';
 
+  playing$ = new BehaviorSubject<boolean>(false);
   timer$: Observable<number>;
   progress$: Observable<number>;
 
   constructor() {
     this.timer$ = timer(1000, 1000).pipe(startWith(0));
-    this.progress$ = this.timer$.pipe(map(i => Math.max(0, 100 - i)));
+    this.progress$ = this.playing$.pipe(
+      switchMap(playing => (playing ? this.timer$ : of(0))),
+      map(i => Math.max(0, 100 - i))
+    );
   }
 
   ngOnInit() {}
@@ -25,9 +29,11 @@ export class TimerComponent implements OnInit {
     if (this.state === 'running') {
       this.state = 'paused';
       this.action = 'play';
+      this.playing$.next(false);
     } else {
       this.state = 'running';
       this.action = 'pause';
+      this.playing$.next(true);
     }
   }
 }
