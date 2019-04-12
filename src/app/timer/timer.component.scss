@@ -24,6 +24,7 @@ $btn-height: 20px;
   width: $btn-width;
   height: $btn-height;
   margin-left: 2px;
+  opacity: 0;
 
   border-color: transparent transparent transparent #202020;
   transition: 100ms all ease;
@@ -59,4 +60,10 @@ $btn-height: 20px;
 
 .timer-label {
   font-size: 12px;
+}
+
+.button:hover {
+  .button-icon {
+    opacity: 1;
+  }
 }
