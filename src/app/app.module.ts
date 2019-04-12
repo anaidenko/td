@@ -12,20 +12,9 @@ import { TodoListItemComponent } from './todo-list-item/todo-list-item.component
 import { ApiService } from './api.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TodoListComponent,
-    TodoListFooterComponent,
-    TodoListHeaderComponent,
-    TodoListItemComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule
-  ],
+  declarations: [AppComponent, TodoListComponent, TodoListFooterComponent, TodoListHeaderComponent, TodoListItemComponent],
+  imports: [BrowserModule, FormsModule, HttpModule],
   providers: [TodoDataService, ApiService],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

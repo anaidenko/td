@@ -12,12 +12,9 @@ describe('TodoListHeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        FormsModule
-      ],
-      declarations: [ TodoListHeaderComponent ]
-    })
-    .compileComponents();
+      imports: [FormsModule],
+      declarations: [TodoListHeaderComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

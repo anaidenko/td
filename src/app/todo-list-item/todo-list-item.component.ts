@@ -7,7 +7,6 @@ import { Todo } from '../todo';
   styleUrls: ['./todo-list-item.component.scss']
 })
 export class TodoListItemComponent {
-
   @Input() todo: Todo;
 
   @Output()
@@ -16,8 +15,7 @@ export class TodoListItemComponent {
   @Output()
   toggleComplete: EventEmitter<Todo> = new EventEmitter();
 
-  constructor() {
-  }
+  constructor() {}
 
   toggleTodoComplete(todo: Todo) {
     this.toggleComplete.emit(todo);
@@ -26,5 +24,4 @@ export class TodoListItemComponent {
   removeTodo(todo: Todo) {
     this.remove.emit(todo);
   }
-
 }

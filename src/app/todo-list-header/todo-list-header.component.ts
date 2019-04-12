@@ -7,18 +7,15 @@ import { Todo } from '../todo';
   styleUrls: ['./todo-list-header.component.scss']
 })
 export class TodoListHeaderComponent {
-
   newTodo: Todo = new Todo();
 
   @Output()
   add: EventEmitter<Todo> = new EventEmitter();
 
-  constructor() {
-  }
+  constructor() {}
 
   addTodo() {
     this.add.emit(this.newTodo);
     this.newTodo = new Todo();
   }
-
 }

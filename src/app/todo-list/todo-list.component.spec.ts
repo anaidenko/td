@@ -12,20 +12,15 @@ describe('TodoListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodoListComponent ],
-      schemas: [
-        NO_ERRORS_SCHEMA
-      ]
-    })
-    .compileComponents();
+      declarations: [TodoListComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TodoListComponent);
     component = fixture.componentInstance;
-    component.todos = [
-     new Todo({ id: 1, title: 'Test', complete: false })
-    ];
+    component.todos = [new Todo({ id: 1, title: 'Test', complete: false })];
     fixture.detectChanges();
   });
 
