@@ -1,0 +1,8 @@
+<div class="timer" [ngClass]="[state]">
+  <button class="button" (click)="toggle()" *ngIf="(timeRemaining$ | async)">
+    <i class="button-icon" [ngClass]="[iconClass]"></i>
+    <app-timer-progress class="progress" [percent]="timeRemainingProgress$ | async"></app-timer-progress>
+  </button>
+
+  <app-timer-label class="timer-label" [timer]="timeSpent$ | async" *ngIf="(timeSpent$ | async) || (playing$ | async)"></app-timer-label>
+</div>

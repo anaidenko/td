@@ -1,0 +1,80 @@
+$progress-width: 30px;
+$progress-height: 30px;
+
+$btn-width: 15px;
+$btn-height: 20px;
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  position: relative;
+  align-items: center;
+}
+
+.button {
+  position: relative;
+}
+
+.button-icon {
+  display: inline-block;
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
+  width: $btn-width;
+  height: $btn-height;
+  margin-left: 2px;
+  opacity: 0;
+
+  border-color: transparent transparent transparent #202020;
+  transition: 100ms all ease;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 1;
+
+  // play action
+  &.play {
+    border-style: solid;
+    border-width: ($btn-height / 2) 0 ($btn-height / 2) $btn-width;
+  }
+
+  // pause action
+  &.pause {
+    border-style: double;
+    height: $btn-height - 3px;
+    border-width: 0 0 0 ($btn-width - 3px);
+  }
+
+  &:hover {
+    border-color: transparent transparent transparent #404040;
+  }
+}
+
+.progress {
+  width: $progress-width;
+  height: $progress-height;
+  z-index: -1;
+  opacity: 0.5;
+  transition: opacity 100ms ease;
+}
+
+.timer.running .progress {
+  opacity: 1;
+}
+
+.timer-label {
+  font-size: 12px;
+}
+
+.button:hover {
+  .button-icon {
+    opacity: 1;
+  }
+
+  .progress {
+    opacity: 1;
+  }
+}

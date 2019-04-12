@@ -12,17 +12,14 @@ describe('TodoListFooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodoListFooterComponent ]
-    })
-    .compileComponents();
+      declarations: [TodoListFooterComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TodoListFooterComponent);
     component = fixture.componentInstance;
-    component.todos = [
-      new Todo({ id: 1, title: 'Test', complete: false })
-    ];
+    component.todos = [new Todo({ id: 1, title: 'Test', complete: false })];
     fixture.detectChanges();
   });
 

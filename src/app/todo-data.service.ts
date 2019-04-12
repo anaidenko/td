@@ -5,11 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class TodoDataService {
-
-  constructor(
-    private api: ApiService
-  ) {
-  }
+  constructor(private api: ApiService) {}
 
   // Simulate POST /todos
   addTodo(todo: Todo): Observable<Todo> {
@@ -41,5 +37,4 @@ export class TodoDataService {
     todo.complete = !todo.complete;
     return this.api.updateTodo(todo);
   }
-
 }
