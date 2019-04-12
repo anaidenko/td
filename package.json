@@ -12,6 +12,11 @@
     "format": "prettier --config .prettierrc --write \"src/**/*.{ts,js,json,html}\""
   },
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "dependencies": {
     "@angular/animations": "^6.0.2",
     "@angular/common": "^6.0.2",
