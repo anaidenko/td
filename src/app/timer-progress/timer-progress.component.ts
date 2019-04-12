@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-timer-progress',
@@ -6,6 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./timer-progress.component.scss']
 })
 export class TimerProgressComponent implements OnInit {
+  @Input()
+  set percent(value: number) {
+    value = this.limit(value, 0, 99.9999) || 0;
+    const angle = (value / 100) * 360;
+    this.svgPath = this.calculateSvgPath(angle);
+  }
+
   svgPath: string;
 
   constructor() {
@@ -14,13 +21,17 @@ export class TimerProgressComponent implements OnInit {
 
   ngOnInit() {}
 
-  private calculateSvgPath(alpha) {
-    alpha %= 360;
-    const r = (alpha * Math.PI) / 180;
+  private calculateSvgPath(angle) {
+    angle %= 360;
+    const r = (angle * Math.PI) / 180;
     const x = Math.sin(r) * 125;
     const y = Math.cos(r) * -125;
-    const mid = alpha > 180 ? 1 : 0;
-    const anim = 'M 0 0 v -125 A 125 125 1 ' + mid + ' 1 ' + x + ' ' + y + ' z';
-    return anim;
+    const mid = angle > 180 ? 1 : 0;
+    const result = 'M 0 0 v -125 A 125 125 1 ' + mid + ' 1 ' + x + ' ' + y + ' z';
+    return result;
+  }
+
+  private limit(value, min, max) {
+    return Math.max(min, Math.min(max, value));
   }
 }
